@@ -1,0 +1,194 @@
+# Subject Exceptions
+#
+# Per-subject session-level rules that supplement the general cleaning
+# filters (X-session and NULL-duration drops). Most anomalous sessions
+# in MazeControl.db were already marked by the experimenter at the time
+# they occurred (session_number = 'X' or session_duration = NULL), and
+# those are handled automatically by Stage 1's general cleaning logic.
+#
+# This file captures two things:
+#   1. Sessions that survive the general filter but need special handling
+#      (action: drop, flag, or note).
+#   2. Provenance notes that document *why* the raw DB marks exist, so
+#      the reasoning is preserved as structured data rather than prose.
+#
+# Schema per entry:
+#   subject_id:    int   — matches MazeControl.db
+#   name:          str   — human-readable, for orientation only
+#   exceptions:    list  — each entry has:
+#     - session_id:    int or null  — if known; null for notes-only entries
+#       session_type:  str          — for cross-checking
+#       action:        str          — 'drop' | 'flag' | 'restore' | 'note'
+#                                     drop    = remove from cleaned DB
+#                                     flag    = keep but add to cleaning_review.txt
+#                                     restore = session is marked X/NULL in raw DB
+#                                               but should be KEPT in cleaned DB
+#                                               (un-X before the general drop runs)
+#                                     note    = documentation only, no action
+#       reason:        str          — why
+#
+# IMPORTANT: The raw DB (data/raw/MazeControl.db) is never edited directly.
+# All drops and restores happen through this file and Stage 1's cleaning
+# logic, so the raw record stays as the rig wrote it.
+#
+# Merge cases (subjects 50, 51, 53, 80) are handled by Stage 1's
+# duplicate-detection logic, not by this file. They are documented in
+# the development repository's notes.
+
+# ── CM subjects ──────────────────────────────────────────────────────
+
+47:
+  name: CM000
+  exceptions:
+    - session_id: 1346
+      session_type: "Fixed Cue 2a"
+      action: note
+      reason: >
+        Novel Route session dropped — did not reach criterion in the
+        first 16 trials to start probe trials. Already marked X in raw DB.
+
+48:
+  name: CM001
+  exceptions:
+    - session_id: 1348
+      session_type: "Fixed Cue 1"
+      action: note
+      reason: >
+        Extra acquisition session run between the Novel Route probe and
+        No Cue probe. Already marked X in raw DB.
+
+# 50 (CM003): No Cue sessions merged. Handled by Stage 1 merge logic.
+# See Appendix C, session 1362.
+
+# 53 (CM006): No Cue sessions merged. Not perfectly counterbalanced
+# (17 trials from west arm, 15 from east). Accepted as trivial.
+# Handled by Stage 1 merge logic. See Appendix C, session 1423.
+
+80:
+  name: CM037
+  exceptions:
+    - session_id: 1817
+      session_type: "Dark Detour"
+      action: note
+      reason: >
+        No Cue Detour session ended 4 trials into probe trials due to
+        maze issues. Subject experienced 3 Detour trials before
+        termination. Already marked X in raw DB. The next-day session
+        (session_id 1820, Dark Detour, 40 trials) ran normally — first
+        four Detour trials had errors so the early termination did not
+        appear to boost performance. Session 1820 is kept.
+
+88:
+  name: CM044
+  exceptions:
+    - session_id: 1913
+      session_type: "Fixed Cue Switch"
+      action: note
+      reason: >
+        Reversal session failed to reach criterion in first 16 trials.
+        Already marked X in raw DB.
+
+93:
+  name: CM049
+  exceptions:
+    - session_id: 1985
+      session_type: "Dark Reverse"
+      action: note
+      reason: >
+        Two reversal sessions failed to reach criterion in first 16
+        trials. Both already marked X in raw DB.
+    - session_id: 1988
+      session_type: "Dark Reverse"
+      action: note
+      reason: >
+        Second of two dropped reversal sessions. Already marked X.
+
+96:
+  name: CM052
+  exceptions:
+    - session_id: 1984
+      session_type: "Dark Detour No Cue"
+      action: note
+      reason: >
+        No Cue Novel Route session dropped for failure to reach
+        criterion in first 16 trials. Already marked X in raw DB.
+    - session_id: 1990
+      session_type: "Dark Reverse"
+      action: note
+      reason: >
+        Reversal session dropped for failure to reach criterion in
+        first 16 trials. Already marked X in raw DB.
+
+97:
+  name: CM053
+  exceptions:
+    - session_id: 2023
+      session_type: "Dark Detour No Cue"
+      action: note
+      reason: >
+        No Cue Novel Route session dropped for failure to reach
+        criterion in first 16 trials. Already marked X in raw DB.
+
+99:
+  name: CM055
+  exceptions:
+    - session_id: 2036
+      session_type: "Rotate Reverse"
+      action: note
+      reason: >
+        Reversal session failed to reach criterion in first 16 trials.
+        Already marked X in raw DB.
+
+126:
+  name: CM060
+  exceptions:
+    - session_id: 2504
+      session_type: "Fixed Cue Novel Route Twist"
+      action: note
+      reason: >
+        Ran double Novel Route — second session dropped. Already
+        marked X in raw DB.
+    - session_id: 2514
+      session_type: "Fixed Cue Switch Twist"
+      action: note
+      reason: >
+        Reversal session drop before probe start due to maze issues.
+        Already marked X in raw DB.
+
+127:
+  name: CM061
+  exceptions:
+    - session_id: 2505
+      session_type: "Fixed Cue Novel Route Twist"
+      action: note
+      reason: >
+        Acquisition session dropped — setup issue, no rat on maze.
+        Already marked X/NULL in raw DB. Two entries (2505, 2506)
+        for the same attempted session.
+    - session_id: 2506
+      session_type: "Fixed Cue Novel Route Twist"
+      action: note
+      reason: >
+        Second attempt at the dropped session. Already marked X.
+
+129:
+  name: CM063
+  exceptions:
+    - session_id: 2553
+      session_type: "Fixed Cue Switch Twist"
+      action: note
+      reason: >
+        Reversal session with setup faults, no issue for rat.
+        Already marked X in raw DB. Multiple X/NULL entries for
+        this session type (2553, 2554, 2555) from repeated false
+        starts.
+
+123:
+  name: CM057
+  exceptions:
+    - session_id: null
+      session_type: "various"
+      action: note
+      reason: >
+        Lots of false starts setting up maze — no issue with subject.
+        All already marked X or NULL in raw DB (7 entries total).

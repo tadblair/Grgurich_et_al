@@ -1,0 +1,17 @@
+The data in this directory (data/raw/, data/tracking/, data/processed/) and the videos in
+videos/ are licensed under the Creative Commons Attribution 4.0 International License
+(CC BY 4.0).
+
+You are free to share and adapt this material for any purpose, including commercially,
+provided you give appropriate credit by citing:
+
+    Grgurich R, Wang S, Wang Y, Pimenta J, Delafraz K, Blair HT.
+    Path Integration Promotes Flexible Navigational Decision Making. Hippocampus.
+
+and indicate whether changes were made.
+
+Full license text: https://creativecommons.org/licenses/by/4.0/legalcode
+Human-readable summary: https://creativecommons.org/licenses/by/4.0/
+
+The code in this repository is licensed separately under the MIT License; see LICENSE at
+the repository root.

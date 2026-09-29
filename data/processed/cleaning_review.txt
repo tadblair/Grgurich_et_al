@@ -1,0 +1,165 @@
+Cleaning Review — 2026-09-28T22:20:58.713354
+============================================================
+
+20 session(s) flagged for review:
+
+  session_id:    2551
+  subject:       129 (CM063)
+  session:       10 — Fixed Cue Rotate Twist
+  date:          3/27/2025
+  duration:      516s (8.6 min)
+  total_trials:  16
+  source:        short_duration
+
+  session_id:    1598
+  subject:       63 (CM016)
+  session:       8 — Fixed Cue Rotate
+  date:          8/4/2023
+  duration:      591s (9.8 min)
+  total_trials:  16
+  source:        short_duration
+
+  session_id:    1485
+  subject:       55 (CM008)
+  session:       6 — Fixed Cue Rotate
+  date:          7/8/2023
+  duration:      605s (10.1 min)
+  total_trials:  16
+  source:        short_duration
+
+  session_id:    1438
+  subject:       52 (CM005)
+  session:       9 — Fixed Cue Rotate
+  date:          6/19/2023
+  duration:      647s (10.8 min)
+  total_trials:  16
+  source:        short_duration
+
+  session_id:    1357
+  subject:       47 (CM000)
+  session:       10 — Fixed Cue Rotate
+  date:          6/7/2023
+  duration:      703s (11.7 min)
+  total_trials:  16
+  source:        short_duration
+
+  session_id:    1448
+  subject:       54 (CM007)
+  session:       12 — Fixed Cue Rotate
+  date:          6/22/2023
+  duration:      710s (11.8 min)
+  total_trials:  16
+  source:        short_duration
+
+  session_id:    2513
+  subject:       123 (CM057)
+  session:       25 — Fixed Cue Rotate Twist
+  date:          3/9/2025
+  duration:      715s (11.9 min)
+  total_trials:  16
+  source:        short_duration
+
+  session_id:    1359
+  subject:       49 (CM002)
+  session:       10 — Fixed Cue Rotate
+  date:          6/7/2023
+  duration:      727s (12.1 min)
+  total_trials:  16
+  source:        short_duration
+
+  session_id:    1378
+  subject:       51 (CM004)
+  session:       1e — Exposure
+  date:          6/9/2023
+  duration:      730s (12.2 min)
+  total_trials:  0
+  source:        short_duration
+
+  session_id:    1358
+  subject:       48 (CM001)
+  session:       10 — Fixed Cue Rotate
+  date:          6/7/2023
+  duration:      747s (12.4 min)
+  total_trials:  16
+  source:        short_duration
+
+  session_id:    1368
+  subject:       50 (CM003)
+  session:       11 — Fixed Cue Rotate
+  date:          6/8/2023
+  duration:      748s (12.5 min)
+  total_trials:  16
+  source:        short_duration
+
+  session_id:    2511
+  subject:       126 (CM060)
+  session:       9 — Fixed Cue Rotate Twist
+  date:          3/8/2025
+  duration:      753s (12.6 min)
+  total_trials:  16
+  source:        short_duration
+
+  session_id:    1566
+  subject:       61 (CM015)
+  session:       14 — Fixed Cue Rotate
+  date:          7/27/2023
+  duration:      778s (13.0 min)
+  total_trials:  16
+  source:        short_duration
+
+  session_id:    2512
+  subject:       127 (CM061)
+  session:       7 — Fixed Cue Rotate Twist
+  date:          3/8/2025
+  duration:      794s (13.2 min)
+  total_trials:  16
+  source:        short_duration
+
+  session_id:    1444
+  subject:       51 (CM004)
+  session:       11 — Fixed Cue Rotate
+  date:          6/21/2023
+  duration:      795s (13.3 min)
+  total_trials:  16
+  source:        short_duration
+
+  session_id:    1560
+  subject:       62 (CM018)
+  session:       12 — Fixed Cue Rotate
+  date:          7/25/2023
+  duration:      804s (13.4 min)
+  total_trials:  16
+  source:        short_duration
+
+  session_id:    1496
+  subject:       58 (CM011)
+  session:       8 — Fixed Cue Rotate
+  date:          7/10/2023
+  duration:      805s (13.4 min)
+  total_trials:  16
+  source:        short_duration
+
+  session_id:    2570
+  subject:       130 (CM064)
+  session:       14 — Fixed Cue Rotate Twist
+  date:          4/1/2025
+  duration:      810s (13.5 min)
+  total_trials:  16
+  source:        short_duration
+
+  session_id:    1567
+  subject:       60 (CM017)
+  session:       12 — Fixed Cue Rotate
+  date:          7/27/2023
+  duration:      853s (14.2 min)
+  total_trials:  16
+  source:        short_duration
+
+  session_id:    1553
+  subject:       59 (CM014)
+  session:       13 — Fixed Cue Rotate
+  date:          7/24/2023
+  duration:      870s (14.5 min)
+  total_trials:  16
+  source:        short_duration
+

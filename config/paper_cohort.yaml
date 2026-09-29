@@ -1,0 +1,247 @@
+# Paper Cohort
+#
+# Canonical list of subjects included in the 2S2C manuscript
+# (Grgurich, Wang, Pimenta, Delafraz, Blair — "Path Integration
+# Promotes Flexible Decision-Making During Spatial Navigation").
+#
+# Figures 2–5 restrict to the 41 rats listed under `figure2` below.
+# Supplementary Figure 1 additionally uses the PI+VC_f1 cohort.
+#
+# ACQUISITION CRITERION:
+#   A rat is included if, on its FINAL acquisition session (32 trials),
+#   it made >= 24/32 correct trials. 24/32 is the single-session
+#   threshold at which the chance probability of passing is <= 0.01
+#   under a binomial(n=32, p=0.5):
+#       P(X >= 24 | 32, 0.5) = 0.0035   (P(X >= 23) = 0.0100, just over).
+#   A "correct trial" = the rat entered the rewarded corner first,
+#   before visiting any unrewarded corner (errors == 0). The two start
+#   arms / routes are the frame-invariant L vs R routes (first letter of
+#   `correct_route`), so the VC rotating frame is handled correctly.
+#
+#   Every rat listed below passes this criterion with margin (lowest
+#   final acquisition session = 26/32). Rats present in the database but
+#   not part of the manuscript are listed at the bottom of this file.
+#
+# Extra CM-named rats exist in the database (pilots, pre-criterion
+# dropouts, etc.) but were not reported in the paper — see the bottom of
+# this file.
+#
+# Counts:
+#   PI+VC  : 17 (8M, 9F)
+#   PI     : 12 (6M, 6F)
+#   VC     : 12 (7M, 5F)
+#   Total  : 41 for Figs 2–5 main analyses
+#   PI+VC_f1 : 6 (Supp Fig 1 only)
+#
+# CM names verified against MazeControl DB (subjects.parquet).
+# NOTE: subject_ids are NOT sequential with CM numbers — there are
+# gaps from pilot/dropped rats (CM012, CM013, CM019–CM022, etc.).
+
+figure2:
+  PI+VC:
+    - 47   # CM000
+    - 48   # CM001
+    - 49   # CM002
+    - 50   # CM003
+    - 51   # CM004
+    - 52   # CM005
+    - 53   # CM006
+    - 54   # CM007
+    - 55   # CM008
+    - 56   # CM009
+    - 57   # CM010
+    - 58   # CM011
+    - 59   # CM014
+    - 60   # CM017
+    - 61   # CM015
+    - 62   # CM018
+    - 63   # CM016
+  PI:
+    - 67   # CM023
+    - 68   # CM027
+    - 69   # CM024
+    - 78   # CM036
+    - 80   # CM037
+    - 90   # CM046
+    - 93   # CM049
+    - 94   # CM050
+    - 95   # CM051
+    - 96   # CM052
+    - 97   # CM053
+    - 98   # CM054
+  VC:
+    - 71   # CM025
+    - 73   # CM026
+    - 75   # CM031
+    - 76   # CM035
+    - 82   # CM038
+    - 84   # CM040
+    - 85   # CM041
+    - 87   # CM043
+    - 88   # CM044
+    - 89   # CM045
+    - 99   # CM055
+    - 100  # CM056
+
+figure3:
+  # Novel Route probe cohort. Same 41 rats as figure2, but PI and VC groups
+  # split by `subjects.novel_route_probe` (which probe condition each rat
+  # received during the Novel Route session).
+  #
+  # Counts: 17 / 6 / 6 / 6 / 6 = 41  (PI+VC / PI_PI / PI_PI+VC / VC_VC / VC_PI+VC).
+  # The rebuilt subjects.parquet assigns VC_VC=6 / VC_PI+VC=6 (an earlier
+  # manuscript draft reported 6 / 7, a mirror swap of the Novel Route labels);
+  # trust the data.
+  PI+VC:
+    - 47   # CM000
+    - 48   # CM001
+    - 49   # CM002
+    - 50   # CM003
+    - 51   # CM004
+    - 52   # CM005
+    - 53   # CM006
+    - 54   # CM007
+    - 55   # CM008
+    - 56   # CM009
+    - 57   # CM010
+    - 58   # CM011
+    - 59   # CM014
+    - 60   # CM017
+    - 61   # CM015
+    - 62   # CM018
+    - 63   # CM016
+  PI_PI:
+    - 93   # CM049
+    - 94   # CM050
+    - 95   # CM051
+    - 96   # CM052
+    - 97   # CM053
+    - 98   # CM054
+  PI_PI+VC:
+    - 67   # CM023
+    - 68   # CM027
+    - 69   # CM024
+    - 78   # CM036
+    - 80   # CM037
+    - 90   # CM046
+  VC_VC:
+    - 84   # CM040
+    - 85   # CM041
+    - 87   # CM043
+    - 88   # CM044
+    - 89   # CM045
+    - 100  # CM056
+  VC_PI+VC:
+    - 71   # CM025
+    - 73   # CM026
+    - 75   # CM031
+    - 76   # CM035
+    - 82   # CM038
+    - 99   # CM055
+
+figure4:
+  # Reversal probe cohort. Four groups (not five): the PI group is a SINGLE
+  # group of 12. The manuscript's PI^PI+VC subgroup (n=6) is an ERROR — no PI
+  # rats reversed with a cue on. All 12 PI-cohort rats have
+  # subjects.reversal_probe == 'PI^PI'; the only two PI^PI+VC rats in the DB
+  # (77/CM032, 79/CM033) are non-cohort excluded pilots.
+  #
+  # VC split by subjects.reversal_probe (counterbalanced swap of the Novel
+  # Route labels): VC^PI+VC=6 / VC^VC=6 (an earlier manuscript draft said 6/7;
+  # same mirror swap as figure3; trust the data).
+  #
+  # Counts: 17 / 12 / 6 / 6 = 41.
+  PI+VC:
+    - 47   # CM000
+    - 48   # CM001
+    - 49   # CM002
+    - 50   # CM003
+    - 51   # CM004
+    - 52   # CM005
+    - 53   # CM006
+    - 54   # CM007
+    - 55   # CM008
+    - 56   # CM009
+    - 57   # CM010
+    - 58   # CM011
+    - 59   # CM014
+    - 60   # CM017
+    - 61   # CM015
+    - 62   # CM018
+    - 63   # CM016
+  PI:
+    - 67   # CM023
+    - 68   # CM027
+    - 69   # CM024
+    - 78   # CM036
+    - 80   # CM037
+    - 90   # CM046
+    - 93   # CM049
+    - 94   # CM050
+    - 95   # CM051
+    - 96   # CM052
+    - 97   # CM053
+    - 98   # CM054
+  VC^PI+VC:
+    - 84   # CM040
+    - 85   # CM041
+    - 87   # CM043
+    - 88   # CM044
+    - 89   # CM045
+    - 100  # CM056
+  VC^VC:
+    - 71   # CM025
+    - 73   # CM026
+    - 75   # CM031
+    - 76   # CM035
+    - 82   # CM038
+    - 99   # CM055
+
+figure5:
+  # Individual-differences clustering cohort. Figure 5 analyzes ONLY the PI+VC
+  # (fixed 2nd cue) group — the same 17 rats as figure2/3/4's PI+VC group; it
+  # reproduces the published Figure 5 exactly.
+  #
+  # k-means (k=3) clusters these 17 rats on three probe scores — Novel Route,
+  # No Cue, Rotation — with Reversal held out as external validation. Cluster
+  # membership is DERIVED in the notebook (not fixed here); the manuscript
+  # partition is VC-Dominant=4 / PI+VC-Integrator=6 / PI-Dominant=7.
+  PI+VC:
+    - 47   # CM000
+    - 48   # CM001
+    - 49   # CM002
+    - 50   # CM003
+    - 51   # CM004
+    - 52   # CM005
+    - 53   # CM006
+    - 54   # CM007
+    - 55   # CM008
+    - 56   # CM009
+    - 57   # CM010
+    - 58   # CM011
+    - 59   # CM014
+    - 60   # CM017
+    - 61   # CM015
+    - 62   # CM018
+    - 63   # CM016
+
+supp_fig1:
+  PI+VC_f1:
+    - 123  # CM057
+    - 124  # CM058
+    - 126  # CM060
+    - 127  # CM061
+    - 129  # CM063
+    - 130  # CM064
+
+# Subjects present in the cleaned DB but not part of the paper:
+#   PI        : 74 (CM030), 77 (CM032), 79 (CM033)
+#   VC        : 70 (CM028), 81 (CM034), 83 (CM039), 86 (CM042), 92 (CM048)
+#   PI+VC_f1  : 125 (CM059)  (see subject_exceptions.yaml — incomplete probes)
+# These rats appear in training_group assignments on subjects.parquet
+# but were not part of the manuscript cohort.
+#
+# Subjects excluded before DB import (not in subjects.parquet):
+#   72 (CM029) — issues running, dropped from analysis
+#   91 (CM047) — never finished reversal, dropped from analysis
+#   128 (CM062) — did not reach criterion on acquisition

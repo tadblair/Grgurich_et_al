@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "grgurich-et-al-2s2c"
+version = "1.0.0"
+description = "Data and analysis code for Grgurich et al., Path Integration Promotes Flexible Navigational Decision Making (Hippocampus)."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [
+    { name = "Ryan Grgurich" },
+]
+
+# The pipeline (data/pipeline/*.py and src/corner_maze/) needs only these. The figure
+# notebooks need the full pinned set in requirements.txt, plus R with afex (environment.md).
+dependencies = [
+    "pandas>=2.0",
+    "pyarrow>=14",
+    "duckdb>=1.0",
+    "pyyaml>=6.0",
+    "numpy>=1.24",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

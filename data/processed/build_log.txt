@@ -1,0 +1,133 @@
+
+============================================================
+PIPELINE RUN — 2026-09-28T22:20:58 — stages: 1 2b 2c 2d 2e 2f 3a 3b 3c 3d 3e
+============================================================
+
+Stage 1 — Clean MazeControl.db — 2026-09-28T22:20:58.717698
+────────────────────────────────────────────────────────────
+  subjects: 47
+  sessions: 556
+  trials: 16398
+  session_events: 58235
+  merge_pairs: 3
+  segments: 559
+  x_sessions_dropped: 25
+  null_duration_dropped: 11
+  exception_drops: 0
+  anomalies_for_review: 20
+
+
+[2026-09-28T22:20:59] Stage 2b (release) assemble: 47 tracking files -> coordinates.parquet (38,217,231 rows, 555 sessions); sample_rates.parquet (555 sessions)
+
+Stage 2c — Build phases.parquet — 2026-09-28T22:21:05.315250
+────────────────────────────────────────────────────────────
+  sessions_with_phases: 464
+  sessions_without_phases: 92
+  total_phases: 40645
+  phase_counts: {'pretrial': 13704, 'trial': 13703, 'iti': 13238}
+  crosses_seam: 0
+  trial_boundaries_coord_based: 13680
+  trial_boundaries_fallback: 24
+  validation_issues: 0
+  file_size_mb: 0.6
+
+
+Stage 2d — Export normalized tables — 2026-09-28T22:21:05.727328
+────────────────────────────────────────────────────────────
+  subjects: 47
+  sessions: 556
+  sessions_with_sample_rate: 555
+  trials: 16398
+  session_segments: 559
+
+
+Stage 2e — Exposure reward reconstruction — 2026-09-28T22:21:08.152854
+────────────────────────────────────────────────────────────
+  sessions: 87
+  skipped: 5
+  incomplete: 5
+  rewards: 2712
+  wells_identified: 2712
+  wells_missing: 0
+
+
+Stage 2f — Exposure phases — 2026-09-28T22:21:08.559352
+────────────────────────────────────────────────────────────
+  exposure_sessions: 87
+  skipped: 5
+  new_phases: 3051
+  total_phases: 43696
+
+
+Stage 3a — Enrich subjects/sessions — 2026-09-28T22:21:08.871555
+────────────────────────────────────────────────────────────
+  subjects: 47
+  sessions: 556
+  training_group:
+    PI+VC: 17
+    PI: 12
+    VC: 12
+    PI+VC_f1: 6
+    VC_DREADDs: 0
+  session_experiment_phase:
+    Acquisition: 324
+    Exposure: 92
+    Novel Route: 47
+    Reversal: 47
+    Rotation: 23
+    No Cue: 23
+
+
+Stage 3b — Trial routes — 2026-09-28T22:21:09.195294
+────────────────────────────────────────────────────────────
+  trials: 16398
+  correct_route non-null: 13704
+  correct_route null (exposure): 2694
+  twist subjects validated: 6
+    RL: 3974
+    LL: 3889
+    RR: 2941
+    LR: 2900
+    nan: 2694
+
+
+Stage 3c — Well visits — 2026-09-28T22:21:13.405886
+────────────────────────────────────────────────────────────
+  trials processed: 13703
+  visits written:   26484
+  reward visits:    13680
+  error visits:     12804
+  no-coord trials:  0
+  no-reward trials: 23
+
+
+Stage 3d — Turn trajectories — 2026-09-28T22:21:17.478790
+────────────────────────────────────────────────────────────
+  training trials: 13703
+  coord_turn_1: 13685
+  coord_turn_2: 13399
+  coord_route: 13399
+  turn_2_goal_side: True=9864, False=3535
+  goal_side_turn: 13678
+  agreement: 13391/13399 (99.9%)
+
+
+Stage 3e — Zone sequence — 2026-09-28T22:21:21.576562
+────────────────────────────────────────────────────────────
+  trials processed: 13703
+  zone runs written: 209205
+  no-coord trials:  0
+
+PIPELINE RUN COMPLETE — 2026-09-28T22:21:21 — 23.0s
+  1         0.1s
+  2b        1.3s
+  2c        5.3s
+  2d        0.4s
+  2e        2.4s
+  2f        0.4s
+  3a        0.3s
+  3b        0.3s
+  3c        4.2s
+  3d        4.1s
+  3e        4.1s
+

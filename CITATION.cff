@@ -1,0 +1,58 @@
+cff-version: 1.2.0
+message: >-
+  If you use this data or code, please cite the article below. This repository holds the
+  rig database and tracking data for every animal in the study, the pipeline that derives
+  the trial and session measures, the notebooks that generate the figures, and the
+  supporting videos.
+type: dataset
+title: >-
+  Data and analysis code for "Path Integration Promotes Flexible Navigational Decision
+  Making"
+authors:
+  - family-names: Grgurich
+    given-names: Ryan
+    affiliation: UCLA Psychology Department
+  - family-names: Wang
+    given-names: Shiyun
+    affiliation: UCLA Psychology Department
+  - family-names: Wang
+    given-names: Yiting
+    affiliation: UCLA Psychology Department
+  - family-names: Pimenta
+    given-names: Jenna
+    affiliation: UCLA Psychology Department
+  - family-names: Delafraz
+    given-names: Kimia
+    affiliation: UCLA Psychology Department
+  - family-names: Blair
+    given-names: Hugh T.
+    affiliation: UCLA Psychology Department
+    email: tadblair@g.ucla.edu
+repository-code: https://github.com/tadblair/Grgurich_et_al
+license:
+  - MIT
+  - CC-BY-4.0
+keywords:
+  - path integration
+  - spatial navigation
+  - hippocampus
+  - rat
+  - behavior
+preferred-citation:
+  type: article
+  title: Path Integration Promotes Flexible Navigational Decision Making
+  journal: Hippocampus
+  authors:
+    - family-names: Grgurich
+      given-names: Ryan
+    - family-names: Wang
+      given-names: Shiyun
+    - family-names: Wang
+      given-names: Yiting
+    - family-names: Pimenta
+      given-names: Jenna
+    - family-names: Delafraz
+      given-names: Kimia
+    - family-names: Blair
+      given-names: Hugh T.
+  # year, volume, pages and doi: add when the article is published

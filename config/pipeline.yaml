@@ -1,0 +1,11 @@
+# Pipeline configuration (release)
+#
+# Stage 1 keeps the subjects whose names start with one of these prefixes and drops the ids
+# listed under excluded_subjects. The database in data/raw/ already holds only the 47 rats of
+# the manuscript cohort (config/paper_cohort.yaml), so every subject it contains is kept and
+# nothing is excluded here.
+
+cohorts:
+  - CM
+
+excluded_subjects: []
