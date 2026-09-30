@@ -10,7 +10,7 @@ own records, and every figure and statistic in the paper can be regenerated from
 |---|---|---|
 | Raw | `data/raw/`, `data/tracking/` | the maze-control database for the 47 rats (587 sessions as logged) and the per-frame tracking (47 files, 37 MB, 38,217,231 frames) |
 | Processed | `data/processed/` | the cleaned database and the tables the notebooks read: 556 sessions, 16,398 trials, every derived measure; rebuilt by `data/pipeline/run_pipeline.py` in about 23 s |
-| Figures | `figures/` | the notebooks that produce Figures 2–5 and Supplementary Figure 1, their SVG output, and the verification scripts |
+| Figures | `figures/` | the notebooks that produce Figures 2–5 (and a response-convergence figure not in the submitted manuscript), their SVG output, and the verification scripts |
 | Videos | `videos/` | Videos S1–S3 |
 
 `data/README.md` is the data dictionary. `environment.md` lists versions and install steps.
@@ -43,7 +43,7 @@ python -m jupyter nbconvert --to notebook --execute --inplace figure2.ipynb   # 
 | 3, Novel Route probe | `figures/notebooks/figure3.ipynb` | `figure3.svg` and `figure3_median.svg` (median variant of the latency panels) | yes |
 | 4, Reversal probe | `figures/notebooks/figure4.ipynb` | `figure4.svg` | yes |
 | 5, individual differences | `figures/notebooks/figure5.ipynb` | `figure5.svg` | no |
-| S1, response convergence | `figures/notebooks/supp_figure1.ipynb` | `supp_figure1.svg` | no |
+| response convergence (not in the submitted manuscript) | `figures/notebooks/supp_figure1.ipynb` | `supp_figure1.svg` | no |
 
 Each notebook selects the cohort from `config/paper_cohort.yaml`, reads `data/processed/`,
 prints every statistic the paper cites, and writes its figure. The five schematic panels the
@@ -57,7 +57,7 @@ notebooks ship executed, so their printed output can be read on GitHub without r
 | PI+VC | 17 | Figures 2–5 |
 | PI | 12 | Figures 2–5 |
 | VC | 12 | Figures 2–5 |
-| PI+VC_f1 | 6 | Supplementary Figure 1 |
+| PI+VC_f1 | 6 | Figure 2G (the "F1" group) |
 
 A rat is in the cohort if it made at least 24 of 32 correct trials on its final acquisition
 session (chance probability ≤ 0.01 under a binomial with p = 0.5). The cohort file lists, at
@@ -112,4 +112,4 @@ use either; `CITATION.cff` has the reference in machine-readable form.
 Ryan Grgurich (first author) or Hugh T. Blair (corresponding author, tadblair@g.ucla.edu),
 UCLA Psychology Department. Issues on this repository are welcome.
 
-Built 2026-09-28 from the Blair Lab development repository.
+Built 2026-09-29 from the Blair Lab development repository.
