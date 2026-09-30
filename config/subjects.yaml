@@ -148,15 +148,14 @@ figure3:
     - 99   # CM055
 
 figure4:
-  # Reversal probe cohort. Four groups: the PI group is a single group of 12
-  # (no PI rat reversed with a cue on; all 12 have
-  # subjects.reversal_probe == 'PI^PI').
+  # Reversal probe cohort. The PI rats are listed as one group of 12 here (every
+  # PI rat reversed without a cue, subjects.reversal_probe == 'PI^PI'); the
+  # notebook splits them by subjects.novel_route_probe into PI_PI and PI_PI+VC,
+  # the same 6 / 6 as figure3, and analyses five groups.
   #
-  # VC split by subjects.reversal_probe (counterbalanced swap of the Novel
-  # Route labels): VC^PI+VC=6 / VC^VC=6 (an earlier manuscript draft said 6/7;
-  # same mirror swap as figure3; trust the data).
+  # VC split by subjects.reversal_probe: VC^PI+VC = 6 / VC^VC = 6.
   #
-  # Counts: 17 / 12 / 6 / 6 = 41.
+  # Counts: 17 / 12 (6 + 6) / 6 / 6 = 41.
   PI+VC:
     - 47   # CM000
     - 48   # CM001
