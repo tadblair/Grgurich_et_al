@@ -1,39 +1,33 @@
-# Subject Exceptions
+# Subject exceptions
 #
-# Per-subject session-level rules that supplement the general cleaning
-# filters (X-session and NULL-duration drops). Most anomalous sessions
-# in MazeControl.db were already marked by the experimenter at the time
-# they occurred (session_number = 'X' or session_duration = NULL), and
-# those are handled automatically by Stage 1's general cleaning logic.
+# Per-subject notes and rules for Stage 1 (data/pipeline/stage1_clean_db.py), keyed by
+# subject_id. The file has two jobs:
 #
-# This file captures two things:
-#   1. Sessions that survive the general filter but need special handling
-#      (action: drop, flag, or note).
-#   2. Provenance notes that document *why* the raw DB marks exist, so
-#      the reasoning is preserved as structured data rather than prose.
+#   1. It records why each session the experimenter voided at the time was voided. Those
+#      sessions are marked in the raw database (session_number = 'X', or a null
+#      session_duration after an aborted start) and Stage 1 drops them by that mark; the
+#      entry here is the reason, kept as data rather than prose.
+#   2. It can override Stage 1's general rules for a named session: `drop` removes a
+#      session the marks would keep, `restore` keeps one the marks would drop, `flag`
+#      keeps it and lists it in cleaning_review.txt. This release needs none of these;
+#      every entry is a `note`.
 #
 # Schema per entry:
 #   subject_id:    int   — matches MazeControl.db
-#   name:          str   — human-readable, for orientation only
+#   name:          str   — CM name, for orientation only
 #   exceptions:    list  — each entry has:
-#     - session_id:    int or null  — if known; null for notes-only entries
+#     - session_id:    int or null  — null for notes that cover several entries
 #       session_type:  str          — for cross-checking
-#       action:        str          — 'drop' | 'flag' | 'restore' | 'note'
-#                                     drop    = remove from cleaned DB
-#                                     flag    = keep but add to cleaning_review.txt
-#                                     restore = session is marked X/NULL in raw DB
-#                                               but should be KEPT in cleaned DB
-#                                               (un-X before the general drop runs)
-#                                     note    = documentation only, no action
+#       action:        str          — 'note' | 'drop' | 'flag' | 'restore' (see above)
 #       reason:        str          — why
 #
-# IMPORTANT: The raw DB (data/raw/MazeControl.db) is never edited directly.
-# All drops and restores happen through this file and Stage 1's cleaning
-# logic, so the raw record stays as the rig wrote it.
+# The raw database (data/raw/MazeControl.db) is never edited. Every drop and restore goes
+# through this file and Stage 1, so the raw record stays as the rig wrote it.
 #
-# Merge cases (subjects 50, 51, 53, 80) are handled by Stage 1's
-# duplicate-detection logic, not by this file. They are documented in
-# the development repository's notes.
+# Sessions recorded in two parts (an aborted start re-run the same day) are merged by
+# Stage 1 on matching (subject_id, session_number); the parts are listed in
+# processed/session_segments.parquet. The three cases are noted under subjects 50, 51
+# and 53 below, keyed by the raw session_id of the second part, which the merge removes.
 
 # ── CM subjects ──────────────────────────────────────────────────────
 
@@ -57,12 +51,37 @@
         Extra acquisition session run between the Novel Route probe and
         No Cue probe. Already marked X in raw DB.
 
-# 50 (CM003): No Cue sessions merged. Handled by Stage 1 merge logic.
-# See Appendix C, session 1362.
+50:
+  name: CM003
+  exceptions:
+    - session_id: 1364
+      session_type: "Fixed No Cue"
+      action: note
+      reason: >
+        Session 10 was recorded in two parts (raw session_ids 1362 and 1364,
+        2023-06-07, 14:17 and 14:47). Stage 1 merges them into session 1362.
 
-# 53 (CM006): No Cue sessions merged. Not perfectly counterbalanced
-# (17 trials from west arm, 15 from east). Accepted as trivial.
-# Handled by Stage 1 merge logic. See Appendix C, session 1423.
+51:
+  name: CM004
+  exceptions:
+    - session_id: 1379
+      session_type: "Exposure"
+      action: note
+      reason: >
+        Exposure session 1e was recorded in two parts (raw session_ids 1378 and
+        1379, 2023-06-09, 10:01 and 10:04). Stage 1 merges them into session 1378.
+
+53:
+  name: CM006
+  exceptions:
+    - session_id: 1424
+      session_type: "Fixed No Cue"
+      action: note
+      reason: >
+        Session 5 was recorded in two parts (raw session_ids 1423 and 1424,
+        2023-06-15). Stage 1 merges them into session 1423. The merged session is
+        not perfectly counterbalanced (17 trials from the west arm, 15 from the
+        east); accepted as trivial.
 
 80:
   name: CM037

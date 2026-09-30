@@ -3,7 +3,6 @@ Stage 1: Clean MazeControl.db into MazeControl-clean.db.
 
 Inputs:
   data/raw/MazeControl.db
-  config/pipeline.yaml        (cohort prefixes, excluded subjects)
   config/subject_exceptions.yaml  (per-subject session rules)
 
 Outputs:
@@ -27,21 +26,15 @@ from corner_maze.common.paths import (
     BUILD_LOG,
     CLEAN_DB,
     CLEANING_REVIEW,
-    PIPELINE_CONFIG,
     PROCESSED_DIR,
     RAW_DB,
     SUBJECT_EXCEPTIONS,
 )
 
-MIN_VALID_SESSION_DURATION_S = 15 * 60  # 15 minutes; see plan §8.1 step 7
+MIN_VALID_SESSION_DURATION_S = 15 * 60  # a complete session runs 16 or more trials, well over 15 min
 
 
 # ── Config loading ───────────────────────────────────────────────────
-
-
-def load_pipeline_config() -> dict:
-    with open(PIPELINE_CONFIG) as f:
-        return yaml.safe_load(f)
 
 
 def load_subject_exceptions() -> dict:
@@ -61,71 +54,6 @@ def copy_raw_db() -> None:
         with sqlite3.connect(str(CLEAN_DB)) as dst:
             src.backup(dst)
     print(f"  Copied {RAW_DB} → {CLEAN_DB}")
-
-
-# ── Step 2: Filter to in-scope subjects ──────────────────────────────
-
-
-def filter_subjects(conn: sqlite3.Connection, config: dict) -> dict:
-    """Keep only subjects matching cohort prefixes, minus excluded.
-
-    Returns a summary dict with counts.
-    """
-    cur = conn.cursor()
-
-    # Build the LIKE clauses from cohort prefixes
-    cohorts = config["cohorts"]
-    like_clauses = " OR ".join(f"name LIKE '{c}%'" for c in cohorts)
-
-    # Find in-scope subject_ids
-    cur.execute(f"SELECT subject_id, name FROM subjects WHERE {like_clauses}")
-    in_scope = {row[0]: row[1] for row in cur.fetchall()}
-
-    # Remove excluded subjects
-    excluded = set(config.get("excluded_subjects", []))
-    for sid in excluded:
-        in_scope.pop(sid, None)
-
-    # Count by prefix
-    prefix_counts = {}
-    for name in in_scope.values():
-        for c in cohorts:
-            if name.startswith(c):
-                prefix_counts[c] = prefix_counts.get(c, 0) + 1
-                break
-
-    # Delete everything not in scope
-    keep_ids = set(in_scope.keys())
-    all_ids = {row[0] for row in cur.execute("SELECT subject_id FROM subjects").fetchall()}
-    drop_ids = all_ids - keep_ids
-
-    if drop_ids:
-        placeholders = ",".join("?" for _ in drop_ids)
-        drop_list = list(drop_ids)
-
-        # Get session_ids for subjects being dropped
-        cur.execute(
-            f"SELECT session_id FROM session WHERE subject_id IN ({placeholders})",
-            drop_list,
-        )
-        drop_session_ids = [row[0] for row in cur.fetchall()]
-
-        if drop_session_ids:
-            s_ph = ",".join("?" for _ in drop_session_ids)
-            cur.execute(f"DELETE FROM trial WHERE session_id IN ({s_ph})", drop_session_ids)
-            cur.execute(f"DELETE FROM session_event WHERE session_id IN ({s_ph})", drop_session_ids)
-
-        cur.execute(f"DELETE FROM session WHERE subject_id IN ({placeholders})", drop_list)
-        cur.execute(f"DELETE FROM subjects WHERE subject_id IN ({placeholders})", drop_list)
-
-    conn.commit()
-
-    return {
-        "subjects_in_scope": len(in_scope),
-        "prefix_counts": prefix_counts,
-        "excluded_by_config": len(excluded & all_ids),
-        "subjects_dropped": len(drop_ids),
-    }
 
 
 # ── Step 3: Drop bad-start sessions ─────────────────────────────────
@@ -659,7 +587,6 @@ def main() -> None:
     print(f"  Target: {CLEAN_DB}")
     print()
 
-    config = load_pipeline_config()
     exceptions = load_subject_exceptions()
 
     # Step 1
@@ -668,14 +595,7 @@ def main() -> None:
     conn = sqlite3.connect(str(CLEAN_DB))
 
     try:
-        # Step 2
-        print("\nFiltering to in-scope subjects...")
-        subj_summary = filter_subjects(conn, config)
-        print(f"  Subjects in scope: {subj_summary['subjects_in_scope']} "
-              f"({subj_summary['prefix_counts']})")
-        print(f"  Excluded by config: {subj_summary['excluded_by_config']}")
-
-        # Step 2.5: Restore sessions before the general drop
+        # Step 2: Restore sessions before the general drop
         print("\nChecking for sessions to restore...")
         restore_summary = restore_sessions(conn, exceptions)
         if restore_summary["n_restored"] > 0:

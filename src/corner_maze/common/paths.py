@@ -28,7 +28,6 @@ REPO_ROOT = _find_repo_root()
 # Top-level directories
 DATA_DIR = REPO_ROOT / "data"
 CONFIG_DIR = REPO_ROOT / "config"
-DOCS_DIR = REPO_ROOT / "docs"
 
 # Data subdirectories
 RAW_DIR = DATA_DIR / "raw"
@@ -52,7 +51,6 @@ TRIAL_WELL_VISITS = PROCESSED_DIR / "trial_well_visits.parquet"
 TRIAL_ZONE_SEQUENCE = PROCESSED_DIR / "trial_zone_sequence.parquet"
 
 # Config files
-PIPELINE_CONFIG = CONFIG_DIR / "pipeline.yaml"
 SUBJECT_EXCEPTIONS = CONFIG_DIR / "subject_exceptions.yaml"
 
 # Build log

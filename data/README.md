@@ -1,7 +1,7 @@
 # Data
 
 Everything in this directory describes the 47 rats of the manuscript cohort
-(`../config/paper_cohort.yaml`) and nothing else. Two inputs, one output:
+(`../config/subjects.yaml`) and nothing else. Two inputs, one output:
 
 | Directory | What | Produced by |
 |---|---|---|

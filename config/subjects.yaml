@@ -1,15 +1,16 @@
-# Paper Cohort
+# Subjects
 #
-# Canonical list of subjects included in the 2S2C manuscript
-# (Grgurich, Wang, Pimenta, Delafraz, Blair — "Path Integration
-# Promotes Flexible Decision-Making During Spatial Navigation").
+# The 47 rats in Grgurich R, Wang S, Wang Y, Pimenta J, Delafraz K, Blair HT,
+# "Path Integration Promotes Flexible Navigational Decision Making" (Hippocampus),
+# by subject_id, grouped the way each figure uses them. The figure notebooks read
+# this file; the pipeline does not.
 #
-# `figure2` lists all 47 rats in the paper: the 41 main-cohort rats
-# (PI+VC, PI, VC) that Figures 2–5 analyse, plus the 6 F1 rats
-# (PI+VC_f1, cue fixed at the 1st choice point) that Figure 2G compares
-# with the PI+VC group. Figures 3–5 list their own subsets. `supp_fig1`
-# (response convergence during acquisition; not in the submitted
-# manuscript) uses all 47.
+# `figure2` lists all 47: the 41 main-cohort rats (PI+VC, PI, VC) that Figures 2-5
+# analyse, plus the 6 F1 rats (PI+VC_f1, cue fixed at the 1st choice point) that
+# Figure 2G compares with the PI+VC group. `figure3`, `figure4` and `figure5` list
+# their own subsets of the 41. `supp_fig1` lists all 47 for Supplementary Figure 1
+# (response convergence during acquisition), which is not in the submitted manuscript
+# and is kept in this repository because it justifies the acquisition criterion below.
 #
 # ACQUISITION CRITERION:
 #   A rat is included if, on its FINAL acquisition session (32 trials),
@@ -292,14 +293,15 @@ supp_fig1:
     - 129  # CM063
     - 130  # CM064
 
-# Subjects present in the cleaned DB but not part of the paper:
+# Rats the lab ran under this protocol that are not in the paper. Their data are not in
+# this repository.
+#
+# Reached the database but not the cohort:
 #   PI        : 74 (CM030), 77 (CM032), 79 (CM033)
 #   VC        : 70 (CM028), 81 (CM034), 83 (CM039), 86 (CM042), 92 (CM048)
-#   PI+VC_f1  : 125 (CM059)  (see subject_exceptions.yaml — incomplete probes)
-# These rats appear in training_group assignments on subjects.parquet
-# but were not part of the manuscript cohort.
+#   PI+VC_f1  : 125 (CM059) — incomplete probe sessions
 #
-# Subjects excluded before DB import (not in subjects.parquet):
-#   72 (CM029) — issues running, dropped from analysis
-#   91 (CM047) — never finished reversal, dropped from analysis
+# Dropped before the database export:
+#   72 (CM029) — problems running the task, dropped from analysis
+#   91 (CM047) — never finished the Reversal probe, dropped from analysis
 #   128 (CM062) — did not reach criterion on acquisition

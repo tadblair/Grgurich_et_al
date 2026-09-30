@@ -1,8 +1,7 @@
 # Grgurich et al., *Path Integration Promotes Flexible Navigational Decision Making*
 
-Data and analysis code for the article (Grgurich R, Wang S, Wang Y, Pimenta J, Delafraz K,
-Blair HT; *Hippocampus*). Every table the figures rest on can be rebuilt here from the rig's
-own records, and every figure and statistic in the paper can be regenerated from those tables.
+Data cleaning, structuring, feature extraction and statistical analysis code for Path Integration Promotes Flexible Navigational Decision Making (Grgurich R, Wang S, Wang Y, Pimenta J, Delafraz K,
+Blair HT; *Hippocampus*).
 
 ## What is here
 
@@ -45,7 +44,7 @@ python -m jupyter nbconvert --to notebook --execute --inplace figure2.ipynb   # 
 | 5, individual differences | `figures/notebooks/figure5.ipynb` | `figure5.svg` | no |
 | response convergence (not in the submitted manuscript) | `figures/notebooks/supp_figure1.ipynb` | `supp_figure1.svg` | no |
 
-Each notebook selects the cohort from `config/paper_cohort.yaml`, reads `data/processed/`,
+Each notebook selects the cohort from `config/subjects.yaml`, reads `data/processed/`,
 prints every statistic the paper cites, and writes its figure. The five schematic panels the
 notebooks splice into the figures (`figures/images/fig_*.svg`) were drawn by hand. The
 notebooks ship executed, so their printed output can be read on GitHub without running them.
@@ -83,8 +82,9 @@ and `--skip` select stages; `--list` prints the table.
 | 3d | `stage3d_turn_trajectory.py` | trials, phases, coordinates | turns and routes read from the tracking |
 | 3e | `stage3e_zone_sequence.py` | trials, phases, coordinates | `trial_zone_sequence.parquet`: the run-length-encoded zone trace of every trial |
 
-The scripts are the ones that built the tables in the paper, unchanged; only `stage2b_assemble.py`
-is specific to this repository, standing in for the stages that read the rig's CSVs.
+The scripts are the ones that built the tables in the paper, with two changes for this
+repository: `stage2b_assemble.py` stands in for the stages that read the rig's CSVs, and
+Stage 1 no longer filters subjects, because the database here holds only the 47 paper rats.
 
 ## Verification
 

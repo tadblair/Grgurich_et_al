@@ -132,6 +132,12 @@ def svg_norm(path: Path) -> str:
     return _DATE.sub("", _ID2.sub("ID", _ID1.sub("ID", s)))
 
 
+# Printed lines that depend on the machine, not the data: font substitution notices, library
+# warnings, and rpy2 reporting that its compiled extension was built against a different R
+# than the one installed (it then falls back to ABI mode; the numbers are the same).
+_NOISE = ("fontTools", "Warning", "Error importing in API mode", "Trying to import in ABI mode")
+
+
 def nb_lines(path: Path, strip: tuple[str, ...] = ()) -> collections.Counter:
     """Printed lines as a multiset; absolute path prefixes in `strip` are removed first so a
     PosixPath(...) echoed by a cell compares equal across directories."""
@@ -151,7 +157,7 @@ def nb_lines(path: Path, strip: tuple[str, ...] = ()) -> collections.Counter:
                 l = l.strip()
                 for pre in strip:
                     l = l.replace(pre + "/", "").replace(pre, ".")
-                if l and "fontTools" not in l and not l.startswith("Saved") and "Warning" not in l:
+                if l and not any(n in l for n in _NOISE) and not l.startswith("Saved"):
                     out.append(l)
     return collections.Counter(out)
 
