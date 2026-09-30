@@ -59,9 +59,7 @@ notebooks ship executed, so their printed output can be read on GitHub without r
 | PI+VC_f1 | 6 | Figure 2G (the "F1" group) |
 
 A rat is in the cohort if it made at least 24 of 32 correct trials on its final acquisition
-session (chance probability ≤ 0.01 under a binomial with p = 0.5). The cohort file lists, at
-its end, the rats the lab ran under this protocol that are not in the paper and why; their
-data are not in this repository.
+session (chance probability ≤ 0.01 under a binomial with p = 0.5).
 
 ## The pipeline
 

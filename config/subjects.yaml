@@ -24,12 +24,7 @@
 #   `correct_route`), so the VC rotating frame is handled correctly.
 #
 #   Every rat listed below passes this criterion with margin (lowest
-#   final acquisition session = 26/32). Rats present in the database but
-#   not part of the manuscript are listed at the bottom of this file.
-#
-# Extra CM-named rats exist in the database (pilots, pre-criterion
-# dropouts, etc.) but were not reported in the paper — see the bottom of
-# this file.
+#   final acquisition session = 26/32).
 #
 # Counts:
 #   PI+VC  : 17 (8M, 9F)
@@ -156,8 +151,7 @@ figure4:
   # Reversal probe cohort. Four groups (not five): the PI group is a SINGLE
   # group of 12. The manuscript's PI^PI+VC subgroup (n=6) is an ERROR — no PI
   # rats reversed with a cue on. All 12 PI-cohort rats have
-  # subjects.reversal_probe == 'PI^PI'; the only two PI^PI+VC rats in the DB
-  # (77/CM032, 79/CM033) are non-cohort excluded pilots.
+  # subjects.reversal_probe == 'PI^PI'.
   #
   # VC split by subjects.reversal_probe (counterbalanced swap of the Novel
   # Route labels): VC^PI+VC=6 / VC^VC=6 (an earlier manuscript draft said 6/7;
@@ -293,15 +287,3 @@ supp_fig1:
     - 129  # CM063
     - 130  # CM064
 
-# Rats the lab ran under this protocol that are not in the paper. Their data are not in
-# this repository.
-#
-# Reached the database but not the cohort:
-#   PI        : 74 (CM030), 77 (CM032), 79 (CM033)
-#   VC        : 70 (CM028), 81 (CM034), 83 (CM039), 86 (CM042), 92 (CM048)
-#   PI+VC_f1  : 125 (CM059) — incomplete probe sessions
-#
-# Dropped before the database export:
-#   72 (CM029) — problems running the task, dropped from analysis
-#   91 (CM047) — never finished the Reversal probe, dropped from analysis
-#   128 (CM062) — did not reach criterion on acquisition
