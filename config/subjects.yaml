@@ -97,9 +97,6 @@ figure3:
   # received during the Novel Route session).
   #
   # Counts: 17 / 6 / 6 / 6 / 6 = 41  (PI+VC / PI_PI / PI_PI+VC / VC_VC / VC_PI+VC).
-  # The rebuilt subjects.parquet assigns VC_VC=6 / VC_PI+VC=6 (an earlier
-  # manuscript draft reported 6 / 7, a mirror swap of the Novel Route labels);
-  # trust the data.
   PI+VC:
     - 47   # CM000
     - 48   # CM001
