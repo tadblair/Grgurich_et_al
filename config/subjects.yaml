@@ -148,10 +148,9 @@ figure3:
     - 99   # CM055
 
 figure4:
-  # Reversal probe cohort. Four groups (not five): the PI group is a SINGLE
-  # group of 12. The manuscript's PI^PI+VC subgroup (n=6) is an ERROR — no PI
-  # rats reversed with a cue on. All 12 PI-cohort rats have
-  # subjects.reversal_probe == 'PI^PI'.
+  # Reversal probe cohort. Four groups: the PI group is a single group of 12
+  # (no PI rat reversed with a cue on; all 12 have
+  # subjects.reversal_probe == 'PI^PI').
   #
   # VC split by subjects.reversal_probe (counterbalanced swap of the Novel
   # Route labels): VC^PI+VC=6 / VC^VC=6 (an earlier manuscript draft said 6/7;
