@@ -41,7 +41,9 @@ keywords:
 preferred-citation:
   type: article
   title: Path Integration Promotes Flexible Navigational Decision Making
-  journal: Hippocampus
+  journal: bioRxiv
+  year: 2026
+  doi: 10.1101/2026.MM.DD.NNNNNN   # fill in once the preprint is posted
   authors:
     - family-names: Grgurich
       given-names: Ryan
@@ -55,4 +57,4 @@ preferred-citation:
       given-names: Kimia
     - family-names: Blair
       given-names: Hugh T.
-  # year, volume, pages and doi: add when the article is published
+  # When the article is published: journal, year, volume, issue, pages and the article DOI.

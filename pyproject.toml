@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "grgurich-et-al-2s2c"
 version = "1.0.0"
-description = "Data and analysis code for Grgurich et al., Path Integration Promotes Flexible Navigational Decision Making (Hippocampus)."
+description = "Data and analysis code for Grgurich et al. 2026, Path Integration Promotes Flexible Navigational Decision Making (bioRxiv)."
 readme = "README.md"
 requires-python = ">=3.11"
 license = "MIT"
