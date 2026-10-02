@@ -22,21 +22,25 @@ the regenerated tables equal the committed ones.
   Stage 1 removes them in the open. File-name columns keep the paths of the rig computer.
 - **The tracking was cleaned before it got here.** The rig wrote one CSV of per-frame
   coordinates per recording. The development repository read those files, interpolated the
-  handful of corrupt rows, stitched the three sessions that were recorded in two parts
-  (`source_segment`), and assigned every frame a maze zone from its x/y position with the
-  map in `../src/corner_maze/common/zones.py`. Those steps need the CSVs, which are not part
-  of this release; their result is. The zone map ships, so `zone` can be recomputed from
-  `x` and `y` and checked.
+  handful of corrupt rows, and stitched the three sessions that were recorded in two parts
+  (`source_segment`). `zone` is the rig's own per-frame zone as it logged it; only the
+  interpolated rows have it recomputed from their x/y with the map in
+  `../src/corner_maze/common/zones.py`. Those steps need the CSVs, which are not part of
+  this release; their result is. The zone map ships, so `zone` can be recomputed from `x`
+  and `y` and checked.
 - **One cohort session has no tracking:** CM008 Exposure session 1e (`session_id` 1456, 2023-07-01). No figure uses it.
 
 ## Limits worth knowing
 
 - **`errors` is rig-logged.** Every accuracy score in the paper rests on the rig's own count
   of wrong-well entries (`trials.errors == 0` means the first well entered was the goal).
-  Counting the well visits reconstructed from the tracking (`processed/trial_well_visits.parquet`)
-  that were not the reward visit gives the same number on 94.5 % (12,925 of 13,683) of the trials
-  with at least one reconstructed visit; both are here so the disagreement can be examined,
-  but the rig's count is the one the paper uses.
+  `processed/trial_well_visits.parquet` replays the rig's counting rules over the tracking
+  (a wrong-well entry registers on the first frame in the well; a well left and re-entered
+  within 2 s of leaving it is not counted again; the trial ends after 250 ms in the rewarded
+  well), and the number of non-reward visits it finds equals `errors` on 99.9 % (13,693 of 13,702)
+  of the trials with at least one reconstructed visit. The nine that differ, by one entry or
+  two, are mostly trials longer than two minutes and are not resolved. The rig's count is the
+  one the paper uses; the visits add the timing.
 - **Exposure sessions.** The two pre-training exposure sessions per rat appear in `sessions`
   and their rewards are reconstructed in `processed/exposure_rewards.parquet` because the
   pipeline ships whole. That reconstruction is approximate (the rig logged exposure rewards

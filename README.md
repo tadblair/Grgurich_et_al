@@ -181,8 +181,8 @@ because the database here holds only the 47 paper rats.
 - **One session has no tracking:** CM008 Exposure session 1e (`session_id` 1456). No figure
   uses it.
 - **`errors` is rig-logged.** The accuracy scores in the paper rest on the rig's own count
-  of wrong-well entries. The well visits reconstructed from the tracking agree on 94.5 % of
-  trials; both are in the tables so the disagreement can be examined (`data/README.md`).
+  of wrong-well entries. The well visits reconstructed from the tracking with the rig's own
+  rules reproduce that count on 99.9 % of trials; both are in the tables (`data/README.md`).
 - **rpy2 and R versions.** If the rpy2 wheel was built against a different R than the one
   installed, importing it prints "Error importing in API mode … Trying to import in ABI
   mode." That is harmless: the numbers are the same. `verify.py` ignores those lines.

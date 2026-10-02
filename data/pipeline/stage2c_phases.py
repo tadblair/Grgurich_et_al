@@ -5,6 +5,13 @@ Reads Pretrial, Trial Start, Trial End, and ITI events, applies the
 phase boundary formulas with named offset constants, and writes one
 row per phase span.
 
+Stitched sessions (recorded in two parts; see session_segments): Stage 1
+re-keys the second recording's events to the merged session_id but leaves
+them on that recording's own clock, while Stage 2b shifted its coordinates
+by max(t_ms of the first recording) + one sample interval. The same shift
+is applied here to every event from the second 'Presession' marker on, so
+the windows land on the right frames.
+
 Inputs:
   data/processed/MazeControl-clean.db  (session_event table)
   data/processed/coordinates.parquet   (for merged-session seam locations)
@@ -37,6 +44,9 @@ REWARD_DWELL_MS = 250           # 250 ms dwell required for reward trigger
 
 # Event types we use for phase construction
 KNOWN_EVENTS = {"Pretrial", "Trial Start", "Trial End", "ITI"}
+
+# One sample interval per tracking rate, as stage2b_merge.stitch_segments uses it
+SAMPLE_INTERVAL_MS = {30: 33, 15: 67, 10: 100}
 
 PHASE_SCHEMA = pa.schema([
     ("session_id", pa.int32()),
@@ -117,6 +127,65 @@ def get_seam_timestamps() -> dict[int, int]:
     """).fetchall()
     con.close()
     return {row[0]: row[1] for row in result}
+
+
+def get_segment_offsets() -> dict[int, int]:
+    """The shift Stage 2b added to each stitched session's second recording.
+
+    stage2b_merge.stitch_segments puts the second recording's frames at
+    time_stamp + max(t_ms of the first recording) + one sample interval. The
+    rate is recovered from the first recording's median frame interval, which
+    equals the stored sample rate for every stitched session.
+    Returns {session_id: offset_ms} for stitched sessions only.
+    """
+    import duckdb
+    con = duckdb.connect()
+    rows = con.execute(f"""
+        WITH seg0 AS (
+            SELECT session_id, t_ms,
+                   t_ms - LAG(t_ms) OVER (PARTITION BY session_id ORDER BY t_ms) AS dt
+            FROM '{COORDINATES}'
+            WHERE source_segment = 0
+              AND session_id IN (SELECT DISTINCT session_id FROM '{COORDINATES}'
+                                 WHERE source_segment = 1)
+        )
+        SELECT session_id, MAX(t_ms) AS max0, MEDIAN(dt) AS median_dt
+        FROM seg0 GROUP BY session_id
+    """).fetchall()
+    con.close()
+    offsets = {}
+    for sid, max0, median_dt in rows:
+        rate_hz = int(round(1000 / float(median_dt)))
+        offsets[int(sid)] = int(max0) + SAMPLE_INTERVAL_MS.get(rate_hz, 33)
+    return offsets
+
+
+def shift_second_recording_events(
+    events: pd.DataFrame, offsets: dict[int, int]
+) -> tuple[pd.DataFrame, dict[int, int]]:
+    """Add each stitched session's offset to the events of its second recording.
+
+    `events` must hold every event type in session_event_id order. The rig
+    writes one 'Presession' event at the start of each recording, so within a
+    stitched session the second 'Presession' row is where the second
+    recording's events begin. A stitched session without exactly two such
+    rows is left unshifted with a warning.
+    Returns (shifted events, {session_id: n_events_shifted}).
+    """
+    events = events.copy()
+    shifted: dict[int, int] = {}
+    for sid, offset in sorted(offsets.items()):
+        in_session = events["session_id"] == sid
+        is_presession = events.loc[in_session, "action_vector_type"] == "Presession"
+        if int(is_presession.sum()) != 2:
+            print(f"  WARNING: session {sid} is stitched but has {int(is_presession.sum())} "
+                  f"Presession events; its second recording's events were not shifted")
+            continue
+        second = is_presession.cumsum() >= 2
+        idx = second[second].index
+        events.loc[idx, "time_stamp"] = events.loc[idx, "time_stamp"] + offset
+        shifted[sid] = len(idx)
+    return events, shifted
 
 
 def build_phases_for_session(
@@ -241,6 +310,7 @@ def main() -> None:
     print(f"  Merged sessions with seams: {len(seams)}")
     for sid, t in sorted(seams.items()):
         print(f"    session {sid}: seam at t_ms={t:,}")
+    offsets = get_segment_offsets()
 
     # Read all events from cleaned DB
     conn = sqlite3.connect(str(CLEAN_DB))
@@ -286,6 +356,12 @@ def main() -> None:
 
     print(f"  Total events: {len(all_events):,}")
     print(f"  Sessions: {len(session_ids)}")
+
+    # Put the second recording of each stitched session on the stitched clock
+    all_events, n_shifted = shift_second_recording_events(all_events, offsets)
+    for sid, n in sorted(n_shifted.items()):
+        print(f"  Stitched session {sid}: {n} second-recording events shifted by "
+              f"+{offsets[sid]:,} ms (coordinate seam at {seams[sid]:,} ms)")
 
     # Filter to known event types
     known_events = all_events[all_events.action_vector_type.isin(KNOWN_EVENTS)].copy()
@@ -378,6 +454,7 @@ def main() -> None:
         "crosses_seam": n_crosses_seam,
         "trial_boundaries_coord_based": total_coord_based,
         "trial_boundaries_fallback": total_fallback,
+        "second_recording_events_shifted": n_shifted,
         "validation_issues": n_validation_issues,
         "file_size_mb": round(size_mb, 1),
     }
